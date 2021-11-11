@@ -1,0 +1,54 @@
+import requests
+
+
+def Input():
+    global key
+    try:
+        key = int(input(" \ninput the shift (between 1/10 and half of length of the message)\n"))
+    except:
+        print("print a integer pls")
+        Input()
+    if not len(html) / 10 < key < len(html) / 2:
+        print("integer between 1/10 and half of length of the message please")
+        Input()
+    return key
+
+
+def Encode(encrypt_key, msg):
+    encryption = ""
+    for i in msg:
+        arr.append(i)
+    for a in range(encrypt_key):
+        for i in range(a, len(arr), encrypt_key):
+            encryption += arr[i]
+
+    return encryption
+
+
+def Decode(key, randomtext):
+    decrypted = ""
+    bucketsize = (len(randomtext) - 1) // key + 1
+    large_buckets = len(randomtext) % key
+    if large_buckets == 0:
+        large_buckets = key
+    for start in range(bucketsize):
+        curr = start
+        curr_bucket = 0
+        while curr < len(randomtext) and len(decrypted) < len(randomtext):
+            decrypted += randomtext[curr]
+            if curr_bucket < large_buckets:
+                curr += bucketsize
+            else:
+                curr += bucketsize - 1
+            curr_bucket += 1
+    return decrypted
+
+
+r = requests.get("http://metaphorpsum.com/sentences/10")
+html = r.text
+arr = []
+print(html)
+key = Input()
+encrypted = Encode(key, html)
+print("encrypted code: " + encrypted)
+print("\ndecrypted code: " + Decode(key, encrypted))
