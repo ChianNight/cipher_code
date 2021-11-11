@@ -1,0 +1,114 @@
+def Main():
+    Input(BoolLoop(), ShiftLoop(), Message())
+
+
+def BoolLoop():
+    global c_bool
+    b_bool = str(input("Do you want encode your message or decode your message? \n"))
+    if b_bool.lower() == "encode" or b_bool.lower() == "encode my message":
+        c_bool = True
+    elif b_bool.lower() == "decode" or b_bool.lower() == "decode my message":
+        c_bool = False
+    else:
+        print("\nWrite either 'encode' or 'decode'")
+        BoolLoop()
+    return c_bool
+
+
+def ShiftLoop():
+    global shift
+    while not Allfunc():
+        while True:
+            try:
+                shift = int(input("\ninput the shift between 1-25\n"))
+            except:
+                print("incorrect input")
+                continue
+            if not 1 <= shift <= 25:
+                print("incorrect input")
+                continue
+            else:
+                break
+        break
+    else:
+        shift = 0
+    return shift
+
+
+def Message():
+    message = str(input("\ninput a string\n"))
+    return message
+
+
+def Input(a_bool, b_shift, message):
+    if g_bool:
+        for l in range(25):
+            if not a_bool:
+                print("code with shift #" + str(l) + " " + Decode(b_shift + l, message))
+            elif a_bool:
+                print("code with shift #" + str(l) + " " + Encode(b_shift + l, message))
+    elif not g_bool:
+        if not a_bool:
+            print("\nOriginal code: " + Decode(b_shift, message))
+        elif a_bool:
+            print("\nCipher code: " + Encode(b_shift, message))
+
+
+def Encode(a_shift, code_before):
+    code_after = ""
+    for i in code_before:
+        b = ord(i) + a_shift
+        if 48 <= ord(i) <= 57 < b:
+            b -= 10
+        elif ord(i) == 32:
+            pass
+        elif (65 <= ord(i) <= 90 < b) or (97 <= ord(i) <= 122 < b):
+            b -= 26
+        elif ord(i) < 47 < b:
+            b -= 15
+        elif 58 <= ord(i) <= 64 < b:
+            b -= 7
+        elif 91 <= ord(i) <= 96 < b:
+            b -= 6
+        elif 122 <= ord(i) <= 126 < b:
+            b -= 5
+        code_after = code_after + chr(b)
+    return code_after
+
+
+def Decode(a_shift, code_before):
+    code_after = ""
+    for i in code_before:
+        b = ord(i) - a_shift
+        if b < 48 <= ord(i) <= 57:
+            b -= 10
+        elif ord(i) == 32:
+            pass
+        elif (65 <= ord(i) <= 90 < b) or (97 <= ord(i) <= 122 < b):
+            b -= 26
+        elif b < 32 < ord(i):
+            b += 15
+        elif b < 58 <= ord(i) <= 64:
+            b += 7
+        elif b < 91 <= ord(i) <= 96:
+            b += 6
+        elif b < 122 <= ord(i) <= 126:
+            b += 5
+        code_after = code_after + chr(b)
+    return code_after
+
+
+def Allfunc():
+    global g_bool
+    d_bool = str(input("\nDo you want to show all possible cipher codes? \n"))
+    if d_bool.lower() == "yes":
+        g_bool = True
+    elif d_bool.lower() == "no":
+        g_bool = False
+    else:
+        print("Write either 'yes' or 'no'")
+        Allfunc()
+    return g_bool
+
+
+Main()
