@@ -1,0 +1,43 @@
+j = 0 
+def main():
+  array1 = [[1,2],[3,4]]
+  array2 = [[1,2],[3,4]]
+  func(array1,array2)
+
+def multi(a,b):
+  return a*b
+
+def func(array1,array2):
+  list1 = ""
+  for i in array1:
+    for n in i:
+      list1 += " "
+  for j in array2:
+    for m in j:
+      list1 += str(m)
+      list1 += " "
+  a,b,c,d,e,f,g,h,i = list1.split(" ")
+
+  pip(int(a),int(b),int(c),int(d),int(e),int(f),int(g),int(h))
+
+def pip(a11,a12,a21,a22,b11,b12,b21,b22):
+  p1 = multi(a11+a22,b11+b22)
+  p2 = multi(a21+a22,b11)
+  p3 = multi(a11,b12-b22)
+  p4 = multi(a22,b21-b11)
+  p5 = multi(a11+a12,b22)
+  p6 = multi(a21-a11,b11+b12)
+  p7 = multi(a12-a22,b21+b22)
+
+  calc(p1,p2,p3,p4,p5,p6,p7)
+
+def calc(p1,p2,p3,p4,p5,p6,p7):
+  c11 = p1+p4-p5+p7
+  c12 = p3+p5
+  c21 = p2+p4
+  c22 = p1-p2+p3+p6
+  array3 = ([c11,c12],[c21,c22]) 
+  print(array3) 
+
+  
+main()
