@@ -1,0 +1,20 @@
+j = 0 
+def main():
+
+  array1 = [[1,2],[3,4]]
+  array2 = [[1,2],[3,4]]
+  array3 = [[],[]]
+
+  return func(array1,array2,array3)
+
+def func(array1,array2,array3):
+
+  for l in range(0, len(array1)):
+    answer = (array1[l][j]*array2[j][j]) + (array1[l][j+1]*array2[j+1][j])
+    answer2 = (array1[l][j]*array2[j][j+1]) + (array1[l][j+1]*array2[j+1][j+1])
+
+    array3[l].append([answer,answer2])
+
+  return array3
+
+print(main())
